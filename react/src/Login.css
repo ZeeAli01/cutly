@@ -1,0 +1,499 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+.login-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    height: 90vh;
+}
+
+/* Image section */
+.login-img {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* increase size */
+}
+
+.login-img img {
+    width: 100%;
+    height: 90vh;
+    max-height: 100%;
+    object-fit: fill;
+}
+
+.container {
+    flex: 1;
+    background-color: white;
+    border-radius: 8px;
+    padding: 40px;
+    /* box-shadow: 0 4px 8px rgba(24, 24, 24, 0.2); */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: inherit;
+}
+
+.login-h1 {
+    color: rgb(83 59 138);
+    margin-bottom: 20px;
+}
+
+.login-h1 {
+    font-family: "Dancing Script", cursive;
+    font-optical-sizing: auto;
+    font-weight: bolder;
+    font-style: normal;
+    font-size: xxx-large;
+}
+
+.login-input {
+    border-radius: 30px;
+    padding: auto 30px;
+    margin: 10px auto;
+}
+
+.login-input:focus {
+
+    border-color: rgb(146, 255, 255);
+}
+
+.label {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: rgb(84, 81, 159);
+
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.error-msg {
+    text-align: center;
+    color: red;
+    padding: 4px;
+    margin: 2px;
+}
+
+.success-msg {
+    text-align: center;
+    color: green;
+    padding: 4px;
+    margin: 2px;
+}
+
+
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .login-img,
+    .container {
+        width: 100%;
+    }
+
+    .login-img {
+        height: 50vh;
+    }
+
+    .login-img img {
+        height: 100%;
+        width: auto;
+    }
+}
+
+
+/* sidebar */
+.sidebar-h1 {
+    font-family: "Dancing Script", cursive;
+    font-optical-sizing: auto;
+    font-weight: bolder;
+    font-style: normal;
+    font-size: xxx-large;
+    color: rgb(255, 255, 255);
+    padding-left: 50px;
+    padding-top: 10px;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 20%;
+    background-color: rgb(57, 41, 96);
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    border-radius: 0 10px 10px 0;
+}
+
+/* ------------ */
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    color: rgb(0, 0, 0);
+}
+
+.sidebar-item i {
+    margin-right: 10px;
+}
+
+.sidebar-itemname {
+    color: rgb(255, 255, 255);
+    width: auto;
+    text-decoration: none;
+}
+
+.sidebar-item span {
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+
+.hover-underline-animation {
+    display: inline-block;
+    position: relative;
+    color: #ffffff;
+}
+
+.hover-underline-animation::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: rgb(255, 255, 255);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.hover-underline-animation:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.login-button {
+    background-color: rgb(83, 59, 138);
+    margin: 20px 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+
+}
+
+.login-button:hover {
+    background-color: rgb(107 83 168);
+}
+
+/* Dashboard */
+.dashboard {
+    display: flex;
+}
+
+.dashboard-content {
+    flex: 1;
+    padding: 20px;
+    margin-left: 20%;
+}
+
+.cards {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+
+/* new url page */
+.sidebar-child {
+    display: flex;
+}
+
+.inner-sidebar-child {
+    flex: 1;
+    padding: 20px;
+    margin-left: 20%;
+}
+
+/* add new user modal */
+.add-item-div {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* add user  button */
+.add-user-button {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+/* 
+ hello , {username} h1 & welcome h2  */
+.roboto-light {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.welcome {
+    font-family: "Roboto", sans-serif;
+    font-style: oblique;
+    font-weight: 100;
+}
+
+
+/* UserTable.jsx */
+.table {
+    width: 100%;
+    border: 1px solid #dddddd;
+    border-collapse: separate;
+    border-spacing: 15px 15px 15px 15px;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.table th,
+.table td {
+    padding: 8px 10px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #f2f2f2;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table tr:first-child(even) {
+    color: #fe6767;
+
+}
+
+.table td,
+.table th {
+    border-bottom: 1px solid #dddddd;
+
+}
+
+.table tr:hover {
+    background-color: #000000;
+}
+
+.tableportion {
+    margin-top: 5px;
+}
+
+
+
+.actions-td {
+    width: 55px;
+}
+
+.row-delete-button {
+    color: rgb(255, 255, 255);
+    display: flex;
+    margin: 5px;
+    margin-left: 10px;
+}
+
+.row-update-button {
+    display: flex;
+    margin-left: 12px;
+}
+
+/* new.jsx */
+
+
+.new-header h1 {
+    font: 900 49px asap, arial;
+    color: rgb(107 83 168);
+    letter-spacing: -1px;
+    text-shadow: 0 2px 2px #ddd;
+    word-wrap: break-word;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+/* new url box */
+section#url-box {
+    margin: 0 auto 20px auto;
+    max-width: 758px;
+    box-shadow: 0 1px 4px #ccc;
+    border-radius: 6px;
+    padding: 20px 30px;
+    background: #fff;
+    text-align: center;
+}
+
+#url-box h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+#url-box p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.url-input {
+    background-color: #f8f9fa;
+    border: 2px solid #ced4da;
+    border-radius: 6px;
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
+    color: #495057;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.url-input:focus {
+    background-color: #fff;
+    border-color: #543394;
+    outline: none;
+}
+
+#formbutton .submit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(91, 70, 145);
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: background-color 0.2s ease;
+}
+
+#formbutton .submit-button:hover {
+    background-color: #543394;
+}
+
+.arrow-icon {
+    margin-left: 8px;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+section.short-url-box {
+    margin: 0 auto 20px auto;
+    max-width: 758px;
+    box-shadow: 0 1px 4px #ccc;
+    border-radius: 6px;
+    padding: 20px 30px;
+    background: #fff;
+    text-align: center;
+}
+
+.inactive-short-url {
+    display: none;
+}
+
+.short-url {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* pre-generate */
+.pre-generate {
+    margin: 0 auto 20px auto;
+    max-width: 758px;
+    box-shadow: 0 1px 4px #ccc;
+    border-radius: 6px;
+    padding: 20px 30px;
+    background: #fff;
+    text-align: center;
+}
+
+.pre-gen-btn {
+    margin: 10px 0;
+    background-color: rgb(91, 70, 145);
+
+}
+
+.pre-gen-btn:hover {
+    background-color: #543394;
+}
+
+
+.new-user-link {
+    padding: 4px;
+    margin: 2px;
+    text-decoration: none;
+    font-family: system-ui;
+    color: rgb(107 83 168);
+    font-weight: 500;
+    font-style: italic;
+}
+
+.hover-underline-animation {
+    display: inline-block;
+    position: relative;
+    color: #543394;
+}
+
+.hover-underline-animation::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #543394;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.hover-underline-animation:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
