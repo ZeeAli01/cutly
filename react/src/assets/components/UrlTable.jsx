@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import UpdateUrlModal from "./UpdateUrlModal";
+import QRModal from "./QRModal";
+
+
 function UrlTable() {
   const [urls, setUrls] = useState([]);
   const username = localStorage.getItem("username");
@@ -54,6 +57,7 @@ function UrlTable() {
   }
   }
    async function handleUrlUpdateButton(url_id, updatedURL) {
+    console.log("TAG ID = ",updatedURL.tag_id);
      try{
       console.log(url_id,updatedURL);
       const response=await fetch(`http://localhost:3000/api/urls/${url_id}`, {
@@ -75,6 +79,7 @@ function UrlTable() {
     console.error("ERROR UPDATING URL");
   }
   }
+
   return (
     <>
       <div>
@@ -88,6 +93,8 @@ function UrlTable() {
               <th>Status</th>
               <th>Type</th>
               <th>Pre Generated</th>
+              <th>QR</th>
+              <th>Tag</th>
               <th>Actions</th>
               
 
@@ -103,6 +110,8 @@ function UrlTable() {
                <td>{url.status}</td>
                 <td>{url.url_type?url.url_type:"-"}</td>
                 <td>{url.is_pre_generated?"true":"false"}</td>
+                <td><QRModal url={url.short_url}/></td>
+                <td>{url.urltag?url.urltag.tag_name:"-"}</td>
                 <td className="actions-td">
                   <button
                     className="row-delete-button btn btn-danger"

@@ -7,10 +7,12 @@ import { LoggerMiddleware } from 'common/middleware/logger.middleware';
 import { AuthModule } from './auth/auth.module';
 import { UrlsModule } from './urls/urls.module';
 import { UrlRedirectMiddleware } from 'common/middleware/url-redirect.middleware';
+import { UrltagsModule } from './urltags/urltags.module';
+import { UrlclicksModule } from './urlclicks/urlclicks.module';
 
 
 @Module({
-  imports: [DatabaseModule, AuthModule, UsersModule, UrlsModule],
+  imports: [DatabaseModule, AuthModule, UsersModule, UrlsModule, UrltagsModule, UrlclicksModule],
   controllers: [AppController],
   providers: [AppService],
 })

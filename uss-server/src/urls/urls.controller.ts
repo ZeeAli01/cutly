@@ -12,7 +12,6 @@ import { Role } from 'src/enums/role.enum';//ROLES ENUM -> 1,2
 export class UrlsController {
   constructor(private readonly urlsService: UrlsService) { }
 
-
   @UseGuards(AuthGuard)
   @Post()
   async create(@Query('username') username: string, @Body() createUrlDto: CreateUrlDto): Promise<url | undefined> {

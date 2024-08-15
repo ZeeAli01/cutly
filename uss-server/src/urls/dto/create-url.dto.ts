@@ -1,5 +1,5 @@
 import { statusenum, urltypeenum } from '@prisma/client';
-import { IsBoolean, IsDateString, IsEnum, IsOptional, IsString, IsUUID, Length } from 'class-validator';
+import { IsBoolean, IsDateString, IsEnum, IsInt, IsOptional, IsString, IsUUID, Length } from 'class-validator';
 
 export class CreateUrlDto {
 
@@ -21,6 +21,7 @@ export class CreateUrlDto {
 
     @IsDateString()
     @IsOptional()
+
     expiration_date?: Date; //[nullable]
 
     @IsBoolean()
@@ -31,11 +32,11 @@ export class CreateUrlDto {
     @IsOptional()
     status?: statusenum; //default = active //[nullable]
 
-    @IsUUID()
+    @IsInt()
     @IsOptional()
     logo_id?: number;
 
-    @IsUUID()
+    @IsInt()
     @IsOptional()
     tag_id?: number;
 

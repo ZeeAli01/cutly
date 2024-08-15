@@ -474,13 +474,13 @@ a {
     font-style: italic;
 }
 
-.hover-underline-animation {
+.hover-underline-animation1 {
     display: inline-block;
     position: relative;
     color: #543394;
 }
 
-.hover-underline-animation::after {
+.hover-underline-animation1::after {
     content: '';
     position: absolute;
     width: 100%;
@@ -493,7 +493,93 @@ a {
     transition: transform 0.25s ease-out;
 }
 
-.hover-underline-animation:hover::after {
+.hover-underline-animation1:hover::after {
     transform: scaleX(1);
     transform-origin: bottom left;
+}
+
+.qr-modal {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.download-qr-modal {
+    padding: 9px 90px;
+
+}
+
+/* assign tag modal */
+
+.noscroll {
+    -ms-overflow-style: none;
+    /* Internet Explorer 10+ */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.noscroll::-webkit-scrollbar {
+    display: none;
+    /* Safari and Chrome */
+}
+
+/* dashboard stats table */
+.dashboard-table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 20%;
+}
+
+.dashboard-table table {
+    border-collapse: collapse;
+    width: 50%;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.dashboard-table th,
+.dashboard-table td {
+    padding: 15px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-family: "Roboto", sans-serif;
+}
+
+.dashboard-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.dashboard-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.dashboard-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* usage stats accordion */
+.accordion {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
+}
+
+/* urlclickinfo table */
+.urlClick-table {
+
+
+    height: inherit;
+    width: inherit;
+
+
 }

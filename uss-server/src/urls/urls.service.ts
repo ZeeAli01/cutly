@@ -1,10 +1,8 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { Prisma, PrismaClient, url, users } from '@prisma/client';
+import { Prisma, url, users } from '@prisma/client';
 import { DatabaseService } from 'src/database/database.service';
 import { CreateUrlDto } from './dto/create-url.dto';
 import { UsersService } from 'src/users/users.service';
-import { NotFoundError } from 'rxjs';
-
 
 @Injectable()
 export class UrlsService {
@@ -87,7 +85,7 @@ export class UrlsService {
       if (!user) {
         throw new InternalServerErrorException('User not found')
       }
-      const urls: url[] = await this.databaseService.url.findMany({ where: { user_id: user.user_id } })
+      const urls: url[] = await this.databaseService.url.findMany({ where: { user_id: user.user_id }, include: { urltag: true, logo: true } })
       if (!urls.length) {
         return undefined;
       }
@@ -102,7 +100,7 @@ export class UrlsService {
   }
   async findOne(id: string): Promise<url | undefined> {
     try {
-      const url: url | undefined = await this.databaseService.url.findUnique({ where: { url_id: id } });
+      const url: url | undefined = await this.databaseService.url.findUnique({ where: { url_id: id }, include: { urltag: true, logo: true } });
       if (!url) {
         return undefined;
       }
@@ -114,9 +112,9 @@ export class UrlsService {
 
   async update(id: string, updateUrlDto: Prisma.urlUpdateInput): Promise<url | undefined> {
     try {
-      const urlToUpdate: url | undefined = await this.databaseService.url.findUnique({ where: { url_id: id } });
+      const urlToUpdate: url | undefined = await this.databaseService.url.findUnique({ where: { url_id: id }, });
       if (!urlToUpdate) { throw new InternalServerErrorException('Url Not Found'); }
-      const updatedUrl = await this.databaseService.url.update({ where: { url_id: id }, data: updateUrlDto });
+      const updatedUrl = await this.databaseService.url.update({ where: { url_id: id }, data: updateUrlDto, include: { urltag: true, logo: true } });
       if (updatedUrl) { return updatedUrl }
       return undefined;
     } catch (error) {

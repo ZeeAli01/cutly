@@ -151,7 +151,7 @@ function Login() {
                 Login
               </button>
               <Link
-                className="new-user-link hover-underline-animation"
+                className="new-user-link hover-underline-animation1"
                 to="/register"
               >
                 New to Cutly?

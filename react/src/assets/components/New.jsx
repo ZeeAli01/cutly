@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaArrowCircleRight } from "react-icons/fa";
 import { QRCode } from 'react-qrcode-logo';
+import { IoMdCloudDownload } from "react-icons/io";
 
 
 // NEW URL
@@ -50,8 +51,7 @@ function New() {
   if (isPreGenerated) {
       bodyObject['is_pre_generated'] = isPreGenerated;
   }
-  console.log("BODY OBJ",bodyObject);console.log("type of date = ",typeof bodyObject['expiration_date'])
-    try {
+ try {
       const response = await fetch(`http://localhost:3000/api/urls?username=${username}`, {
         method: "POST",
         headers: {
@@ -145,9 +145,14 @@ function New() {
             <div className="new-short-url-qr"> 
               <QRCode size={100} enableCORS={true}  id={shortenedUrl} value={`http://localhost:3000/api/urls/redirect/${shortenedUrl}`}
                 />
-              <button onClick={() => downloadCode(shortenedUrl)}>
-                Download Code
-              </button>
+               <button
+              className="btn btn-success download-qr-modal"
+              onClick={() => downloadCode(shortenedUrl)}
+            >
+              <IoMdCloudDownload />
+              
+              Download
+            </button>
             </div>
            
           </div>

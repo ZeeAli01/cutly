@@ -9,6 +9,7 @@ import SidebarRoot from "./src/assets/components/SidebarRoot.jsx";
 import ManageUserRoles from "./src/assets/components/ManageUserRoles.jsx";
 import MyUrls from "./src/assets/components/MyUrls.jsx";
 import PreGenerate from "./src/assets/components/PreGenerate.jsx";
+import UsageStats from "./src/assets/components/UsageStats.jsx";
 function App() {
   return (
     <Routes>
@@ -21,6 +22,7 @@ function App() {
         <Route path="new" element={<New />} />
         <Route path="manage" element={<ManageUserRoles />} />
         <Route path="urls" element={<MyUrls />} />
+        <Route path="stats" element={<UsageStats />} />
         <Route path="pregenerate" element={<PreGenerate />} />
       </Route>
     </Routes>

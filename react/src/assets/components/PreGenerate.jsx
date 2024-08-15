@@ -36,7 +36,7 @@ function PreGenerate() {
         <div className="inner-sidebar-child">
           <div className="pre-generate">
             <div className="new-header">
-              <h1>Pre Generate</h1>
+              <h1>Get Now, Use Later.</h1>
             </div>
             <form onSubmit={handleSubmit}>
               <div className="form-group">

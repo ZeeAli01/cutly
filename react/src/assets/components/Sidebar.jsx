@@ -41,20 +41,14 @@ export default function Sidebar() {
               <span className="hover-underline-animation">My URLs</span>
             </Link>
           </div>
-          {/* qr code of urls */}
-          {/* <div className="sidebar-item">
-            <Link className="sidebar-itemname" to="/home/qrs">
-              <QrCodeIcon />
-              <span className="hover-underline-animation">QR Code</span>
-            </Link>
-          </div> */}
+
           {/* usage stats of urls */}
-          {/* <div className="sidebar-item">
+          <div className="sidebar-item">
             <Link className="sidebar-itemname" to="/home/stats">
               <InsightsIcon />
               <span className="hover-underline-animation">Statistics</span>
             </Link>
-          </div> */}
+          </div>
           {/* api keys of user */}
           {/* <div className="sidebar-item">
             <Link className="sidebar-itemname" to="/home/apikey">
