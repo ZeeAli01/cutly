@@ -12,7 +12,7 @@ function MyUrls() {
       >
         <div className="sidebar-child">
           <div className="users inner-sidebar-child">
-            <h2>My Urls</h2>
+            <h1>My Urls</h1>
 
             <UrlTable />
           </div>

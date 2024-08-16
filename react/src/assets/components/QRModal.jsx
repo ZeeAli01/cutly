@@ -4,7 +4,9 @@ import Modal from "react-bootstrap/Modal";
 import { QRCode } from "react-qrcode-logo"; //qr code picture
 import { BsQrCode } from "react-icons/bs"; //qr code icon
 import { IoMdCloudDownload } from "react-icons/io";
+
 function QRModal({ url }) {
+  console.log("in qr modal url = ", url);
   const [show, setShow] = useState(false);
   const [shortenedURL, setShortenedURL] = useState(url);
   const handleClose = () => setShow(false);
@@ -17,8 +19,6 @@ function QRModal({ url }) {
         .replace("image/png", "image/octet-stream");
       let downloadLink = document.createElement("a");
       downloadLink.href = pngUrl;
-
-      // Suggest saving in the 'images' folder inside the 'public' directory
       downloadLink.download = `${shortenedURL}.png`;
 
       document.body.appendChild(downloadLink);
@@ -44,11 +44,17 @@ function QRModal({ url }) {
         <Modal.Body>
           <div className="qr-modal">
             <QRCode
+              logoImage={url.logo?.logo_path}
               size={250}
+              logoHeight={50}
+              removeQrCodeBehindLogo={true}
+              logoWidth={50}
+              logoOpacity={1}
               enableCORS={true}
-              id={url}
-              value={`http://localhost:3000/api/urls/redirect/${url}`}
+              id={url.short_url}
+              value={`http://localhost:3000/api/urls/redirect/${url.short_url}`}
             />
+
             <button
               className="btn btn-success download-qr-modal"
               onClick={() => downloadCode(shortenedURL)}

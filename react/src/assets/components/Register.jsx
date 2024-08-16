@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 function Register() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [role, setRole] = useState(""); // Default role : user | admin
+  // const [role, setRole] = useState(""); // Default role : user | admin
   const [username, setUsername] = useState("");
   const [emailError, setEmailError] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -27,10 +27,10 @@ function Register() {
       formIsValid = false;
       setErrorMessage("Password is required");
     }
-    if (!role) {
-      formIsValid = false;
-      setErrorMessage("Role is required");
-    }
+    // if (!role) {
+    //   formIsValid = false;
+    //   setErrorMessage("Role is required");
+    // }
     return formIsValid;
   };
 
@@ -44,8 +44,10 @@ function Register() {
         },
         body: JSON.stringify({
           username: username,
+
           email: email,
-          role_id: role === "admin" ? 1 : 2,
+          role_id: 2,
+          // role_id: role === "admin" ? 1 : 2,
           password_hash: password,
         }),
       })
@@ -116,7 +118,7 @@ function Register() {
                   onChange={(event) => setPassword(event.target.value)}
                 />
               </div>
-              <div className="form-group">
+              {/* <div className="form-group">
                 <div className="form-check">
                   <input
                     className="form-check-input login-input"
@@ -151,7 +153,7 @@ function Register() {
                     Admin
                   </label>
                 </div>
-              </div>
+              </div> */}
 
               <button type="submit" className="btn btn-primary login-button">
                 Register

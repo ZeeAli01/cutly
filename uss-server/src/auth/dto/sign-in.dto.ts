@@ -1,5 +1,5 @@
 //sign in dto
-import { IsEmail, IsNotEmpty, IsInt, IsIn, IsString, MinLength } from 'class-validator';
+import { IsNotEmpty, IsInt, IsIn, IsString, MinLength } from 'class-validator';
 export class SignInDto {
     @IsNotEmpty()
     @IsString()

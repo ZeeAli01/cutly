@@ -147,7 +147,7 @@ function Login() {
                 </div>
               </div>
 
-              <button type="submit" className="btn btn-primary login-button">
+              <button type="submit" className="btn  login-button">
                 Login
               </button>
               <Link

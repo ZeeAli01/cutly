@@ -12,6 +12,7 @@ import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { ManageUserRoleDto } from './dto/manage-user-role.dto';
 
 @UseFilters(AllExceptionsFilter)
+
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) { }

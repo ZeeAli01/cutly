@@ -211,11 +211,14 @@ body {
     margin: 20px 20px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: large;
+    color: white;
 
 }
 
 .login-button:hover {
     background-color: rgb(107 83 168);
+    color: white;
+
 }
 
 /* Dashboard */
@@ -239,13 +242,16 @@ body {
 /* new url page */
 .sidebar-child {
     display: flex;
+
 }
 
 .inner-sidebar-child {
     flex: 1;
     padding: 20px;
     margin-left: 20%;
+
 }
+
 
 /* add new user modal */
 .add-item-div {
@@ -582,4 +588,88 @@ a {
     width: inherit;
 
 
+}
+
+.upload-logo {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    margin: 10px;
+    align-items: center;
+}
+
+/* add tag */
+#addtagbutton .submit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(91, 70, 145);
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: background-color 0.2s ease;
+}
+
+#addtagbutton .submit-button:hover {
+    background-color: #543394;
+}
+
+.qr-action {
+    display: flex;
+    justify-content: center;
+    margin: 5px auto;
+
+}
+
+.modal-input input {
+
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+}
+
+.rounded {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+}
+
+#imgnew {
+    width: 50px;
+    height: 50px;
+}
+
+.upload-logo-status {
+
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 700;
+    font-size: large;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 12px auto;
+    color: rgb(83 59 138);
+}
+
+.logo-image-new {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+}
+
+.logo-image-new img {
+    max-width: 250px;
+
+    max-height: 250px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
 }

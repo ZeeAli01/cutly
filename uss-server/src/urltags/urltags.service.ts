@@ -8,16 +8,13 @@ import { UpdateUrltagDto } from './dto/update-urltag.dto';
 @Injectable()
 export class UrltagsService {
   constructor(private readonly databaseService: DatabaseService, private usersService: UsersService) { }
-  async create(username: string, createUrltagDto: CreateUrltagDto): Promise<urltag | undefined> {
+  async create(user_id: string, createUrltagDto: CreateUrltagDto): Promise<urltag | undefined> {
     try {
-      const user: users = await this.usersService.findByUsername(username);
-      if (!user) {
-        throw new InternalServerErrorException('User not found')
+      const exists: boolean = await this.checkIfExists(createUrltagDto.tag_name, user_id);
+      if (exists) {
+        throw new InternalServerErrorException('Tag already exists')
       }
-
-      createUrltagDto.user_id = user.user_id;
-
-      const urlTag: urltag = await this.databaseService.urltag.create({ data: { user_id: createUrltagDto.user_id, tag_name: createUrltagDto.tag_name } });
+      const urlTag: urltag = await this.databaseService.urltag.create({ data: { user_id: user_id, tag_name: createUrltagDto.tag_name } });
       if (!urlTag) {
         throw new InternalServerErrorException('Failed to create url tag');
       }
@@ -56,5 +53,13 @@ export class UrltagsService {
 
   remove(id: number) {
     return `This action removes a #${id} urltag`;
+  }
+  async checkIfExists(tag_name: string, user_id: string) {
+    const urlTag: urltag | undefined = await this.databaseService.urltag.findFirst({ where: { tag_name, user_id } })
+    if (urlTag)
+      return true;
+
+    return false;
+
   }
 }

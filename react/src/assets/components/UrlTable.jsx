@@ -33,7 +33,7 @@ function UrlTable() {
          
           setUrls(data);
         }
-      
+      console.log("URLS: ",data);
     } catch (error) {
       console.error("ERROR GETTING URLS");
     }
@@ -87,13 +87,13 @@ function UrlTable() {
           <thead>
             <tr>
              
-              <th>Original</th>
+              {/* <th>Original</th> */}
               <th>Short</th>
-              <th>Expires On</th>
+              {/* <th>Expires On</th> */}
               <th>Status</th>
               <th>Type</th>
-              <th>Pre Generated</th>
-              <th>QR</th>
+              {/* <th>Pre Generated</th> */}
+              {/* <th>QR</th> */}
               <th>Tag</th>
               <th>Actions</th>
               
@@ -104,13 +104,13 @@ function UrlTable() {
             {urls?.map((url, index) => (
                
               <tr key={index}>
-                <td><a target="_blank" href={url.original_url?url.original_url:""}>{url.original_url?url.original_url:"-"}</a></td>
+                {/* <td><a target="_blank" href={url.original_url?url.original_url:""}>{url.original_url?url.original_url:"-"}</a></td> */}
                 <td><a href={`http://localhost:3000/api/urls/redirect/${url.short_url}`} target="_blank">{`cutly/${url.short_url}`}</a></td>
-               <td>{url.expiration_date?url.expiration_date:"-"}</td>
+               {/* <td>{url.expiration_date?url.expiration_date:"-"}</td> */}
                <td>{url.status}</td>
                 <td>{url.url_type?url.url_type:"-"}</td>
-                <td>{url.is_pre_generated?"true":"false"}</td>
-                <td><QRModal url={url.short_url}/></td>
+                {/* <td>{url.is_pre_generated?"true":"false"}</td> */}
+                {/* <td><QRModal url={url.short_url}/></td> */}
                 <td>{url.urltag?url.urltag.tag_name:"-"}</td>
                 <td className="actions-td">
                   <button
@@ -125,6 +125,8 @@ function UrlTable() {
                       handleUrlUpdateButton={handleUrlUpdateButton}
                     />
                   </div>
+                  <div className="qr-action"> <QRModal className="qr" url={url}/></div>
+                 
                 </td>
               </tr>
             ))}

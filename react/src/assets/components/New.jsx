@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { FaArrowCircleRight } from "react-icons/fa";
 import { QRCode } from 'react-qrcode-logo';
 import { IoMdCloudDownload } from "react-icons/io";
-
-
 // NEW URL
 function New() {
  
@@ -16,7 +14,7 @@ function New() {
   const [expirationDate, setExpirationDate] = useState(undefined);
   const [isPreGenerated,setIsPrGenerated]= useState(false);
   const [shortenedUrl,setShortenedUrl]=useState("");
-
+  const [tagName,setTagName]=useState();
   const downloadCode = (shortenedUrl) => {
     const canvas = document.getElementById(shortenedUrl);
     if (canvas) {
@@ -75,6 +73,7 @@ function New() {
   return (
     <div className="sidebar-child">
       <div className="inner-sidebar-child">
+     
         <div className="new-header">
           <h1>New Short URL</h1>
         </div>
@@ -142,7 +141,7 @@ function New() {
           <h5>Your Shortened URL</h5>
           {shortenedUrl && <div className="new-url-div">
             <a className="short-url" href={`http://localhost:3000/api/urls/redirect/${shortenedUrl}`} target="_blank">http://localhost:3000/api/urls/redirect/{shortenedUrl}</a>
-            <div className="new-short-url-qr"> 
+            {/* <div className="new-short-url-qr"> 
               <QRCode size={100} enableCORS={true}  id={shortenedUrl} value={`http://localhost:3000/api/urls/redirect/${shortenedUrl}`}
                 />
                <button
@@ -153,13 +152,13 @@ function New() {
               
               Download
             </button>
-            </div>
+            </div> */}
            
           </div>
           }
           
         </section>
-      </div>
+        </div>
     </div>
   );
 }

@@ -9,12 +9,19 @@ import { UrlsModule } from './urls/urls.module';
 import { UrlRedirectMiddleware } from 'common/middleware/url-redirect.middleware';
 import { UrltagsModule } from './urltags/urltags.module';
 import { UrlclicksModule } from './urlclicks/urlclicks.module';
-
+import { MulterModule } from '@nestjs/platform-express';
+import { LogosModule } from './logos/logos.module';
+import { CloudinaryService } from 'common/cloudinary.service';
 
 @Module({
-  imports: [DatabaseModule, AuthModule, UsersModule, UrlsModule, UrltagsModule, UrlclicksModule],
+  imports: [DatabaseModule, AuthModule, UsersModule, UrlsModule, UrltagsModule, UrlclicksModule,
+    MulterModule.register({
+      dest: '../common/public/temp',
+    }),
+    LogosModule
+  ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, CloudinaryService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
@@ -24,7 +31,7 @@ export class AppModule implements NestModule {
       .exclude({ path: 'urls/redirect/:url', method: RequestMethod.GET },)
       .forRoutes({ path: '*', method: RequestMethod.ALL });
 
-    //url redirecting middleware /:url([a-zA-Z0-9]{14})
+    //url redirecting middleware /:url([a-zA-Z0-9]{8})
     consumer.
       apply(UrlRedirectMiddleware)
       .forRoutes({ path: 'urls/redirect/:url', method: RequestMethod.GET });

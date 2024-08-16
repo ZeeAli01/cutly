@@ -8,6 +8,9 @@ import InsightsIcon from "@mui/icons-material/Insights"; //stats
 import ExitToAppIcon from "@mui/icons-material/ExitToApp"; //logout
 import PersonIcon from "@mui/icons-material/Person"; //manage users
 import { FaKey } from "react-icons/fa"; //api key
+import { IoLogoIonitron } from "react-icons/io"; //LOGO
+import { FaTag } from "react-icons/fa"; //tag
+
 export default function Sidebar() {
   const [role, setUserRole] = useState(undefined);
   useEffect(() => {
@@ -47,6 +50,21 @@ export default function Sidebar() {
             <Link className="sidebar-itemname" to="/home/stats">
               <InsightsIcon />
               <span className="hover-underline-animation">Statistics</span>
+            </Link>
+          </div>
+          {/* add logo */}
+          <div className="sidebar-item">
+            <Link className="sidebar-itemname" to="/home/uploadlogo">
+              <IoLogoIonitron />
+              <span className="hover-underline-animation">Add Logo</span>
+            </Link>
+          </div>
+
+          {/* create tag */}
+          <div className="sidebar-item">
+            <Link className="sidebar-itemname" to="/home/uploadtag">
+              <FaTag />
+              <span className="hover-underline-animation">Add Tag</span>
             </Link>
           </div>
           {/* api keys of user */}

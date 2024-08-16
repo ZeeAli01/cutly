@@ -17,8 +17,13 @@ function UpdateUrlModal({ id, handleUrlUpdateButton }) {
   const [originalUrl, setOriginalUrl] = useState();
   const [status, setStatus] = useState();
   const [urlType, setUrlType] = useState();
+
   const [tagName,setTagName]=useState();
+  const [logoImage,setLogoImagePath]=useState();
+
   const [tags,setTags]=useState([]);
+  const [logos,setLogos]=useState([]);
+
   const [tagId,setTagId]=useState();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -49,10 +54,14 @@ function UpdateUrlModal({ id, handleUrlUpdateButton }) {
         setStatus(url.status);
         setUrlType(url.url_type);
         fetchTags();
+        
         if (url.urltag) {
           setTagName(url.urltag.tag_name);
           setTagId(url.urltag.tag_id); 
           console.log("URL TAG NAME = ",url.urltag.tag_name)
+        }
+        if(url.logo){
+          setLogoImagePath(url.logo.logo_path);
         }
         console.log("PREV URL = ",url);
         
@@ -112,8 +121,8 @@ function UpdateUrlModal({ id, handleUrlUpdateButton }) {
             className="w-full max-w-sm"
           >
             {/* original url */}
-            <div className="md:flex md:items-center mb-6">
-              <div className="md:w-1/3">
+            <div className="md:flex md:items-center mb-6 ">
+              <div className="md:w-1/3 ">
                 <label
                   className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                   htmlFor="original-url-updateModal"
@@ -121,7 +130,7 @@ function UpdateUrlModal({ id, handleUrlUpdateButton }) {
                   <strong> Original:</strong>
                 </label>
               </div>
-              <div className="md:w-2/3">
+              <div className="md:w-2/3 modal-input">
                 <input
                   className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                   id="original-url-updateModal"
@@ -146,9 +155,9 @@ function UpdateUrlModal({ id, handleUrlUpdateButton }) {
                   <strong>Expiration:</strong>
                 </label>
               </div>
-              <div className="md:w-2/3">
+              <div className="modal-input md:w-2/3">
                 <input
-                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                  className="  bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                   type="date"
                   min={today}
                   id="expiration-date-updateModal"
@@ -171,7 +180,7 @@ function UpdateUrlModal({ id, handleUrlUpdateButton }) {
                   <strong>Status:</strong>
                 </label>
               </div>
-              <div className="md:w-2/3">
+              <div className="md:w-2/3 modal-input">
                 <select
                   name="status-updateModal"
                   id="status-updateModal"
@@ -197,7 +206,7 @@ function UpdateUrlModal({ id, handleUrlUpdateButton }) {
                   <strong>Type:</strong>
                 </label>
                 </div>
-                <div className="md:w-2/3">
+                <div className="md:w-2/3 modal-input">
                 <select
                   name="type-updateModal"
                   id="type-updateModal"
@@ -217,7 +226,7 @@ function UpdateUrlModal({ id, handleUrlUpdateButton }) {
               {/* url tag */}
                   
               <div className="md:flex md:items-center mb-6">
-              <div className="md:w-1/3">
+              <div className="md:w-1/3 ">
                 <label
                   className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                   htmlFor="tag-updateModal"
@@ -225,7 +234,7 @@ function UpdateUrlModal({ id, handleUrlUpdateButton }) {
                   <strong>Tag:</strong>
                 </label>
                 </div>
-                <div className="md:w-2/3">
+                <div className="md:w-2/3 modal-input">
                 <select
                   name="tag-updateModal"
                   id="tag-updateModal"
