@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Logos from "./Logos";
 
 function UploadLogo() {
   const [username, setUsername] = useState(localStorage.getItem("username"));
@@ -24,10 +25,13 @@ function UploadLogo() {
         setResponse("uploading..");
         // You can write the URL of your server or any other endpoint used for file upload
         const result = await fetch(
-          `http://localhost:3000/api/logos/upload?username=${username}`,
+          `http://localhost:3000/api/logos/upload`,
           {
             method: "POST",
-            body: formData,
+            headers: {
+              "Authorization": `Bearer ${accessToken}`,
+            },
+            body:formData,
           }
         );
         if (!result.ok) {
@@ -50,7 +54,7 @@ function UploadLogo() {
     <>
       <div className="sidebar-child">
         <div className="inner-sidebar-child">
-          <h1>Create New Logo</h1>
+          <h1>Create New</h1>
 
           <input
             id="logo-file"
@@ -76,6 +80,12 @@ function UploadLogo() {
               </div>
             </>
           )}
+          {/* LOGO: */}
+          {/* <div id="my-logos-h2">
+            <h2>My Logos</h2>
+          </div> */}
+
+          <Logos />
         </div>
       </div>
     </>

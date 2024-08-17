@@ -8,10 +8,11 @@ import { IoMdCloudDownload } from "react-icons/io";
 function QRModal({ url }) {
   console.log("in qr modal url = ", url);
   const [show, setShow] = useState(false);
-  const [shortenedURL, setShortenedURL] = useState(url);
+  // const [shortenedURL, setShortenedURL] = useState(url);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const downloadCode = (shortenedURL) => {
+    console.log("download ", shortenedURL);
     const canvas = document.getElementById(shortenedURL);
     if (canvas) {
       const pngUrl = canvas
@@ -24,6 +25,7 @@ function QRModal({ url }) {
       document.body.appendChild(downloadLink);
       downloadLink.click();
       document.body.removeChild(downloadLink);
+      console.log("downloaded");
     }
   };
   return (
@@ -57,7 +59,7 @@ function QRModal({ url }) {
 
             <button
               className="btn btn-success download-qr-modal"
-              onClick={() => downloadCode(shortenedURL)}
+              onClick={() => downloadCode(url.short_url)}
             >
               <IoMdCloudDownload />
               Download

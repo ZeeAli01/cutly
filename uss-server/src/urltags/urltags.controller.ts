@@ -26,13 +26,19 @@ export class UrltagsController {
     } catch (error) {
       throw error;
     }
-
-
   }
 
   @Get()
-  async findAll(@Query('username') username: string): Promise<urltag[] | undefined> {
-    return await this.urltagsService.findAll(username);
+  async findAll(@Req() req: Request,): Promise<urltag[] | undefined> {
+    const user_id = req['user']['user_id'];
+    try {
+      if (!user_id) {
+        throw new ForbiddenException('You are not logged in');
+      }
+      return await this.urltagsService.findAll(user_id);
+    } catch (error) {
+      throw error;
+    }
   }
 
   @Get(':id')
@@ -41,12 +47,26 @@ export class UrltagsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUrltagDto: UpdateUrltagDto) {
-    return this.urltagsService.update(+id, updateUrltagDto);
+  async update(@Param('id') id: string, @Body() updateUrltagDto: UpdateUrltagDto): Promise<urltag | undefined> {
+    try {
+      console.log("tag name: ", updateUrltagDto);
+      return await this.urltagsService.update(+id, updateUrltagDto);
+    } catch (error) {
+      throw error;
+    }
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.urltagsService.remove(+id);
+  async remove(@Req() req: Request, @Param('id') id: string): Promise<urltag | undefined> {
+    const user_id = req['user']['user_id'];
+    try {
+      if (!user_id) {
+        throw new ForbiddenException('You are not logged in');
+      }
+      return await this.urltagsService.remove(+id);
+    } catch (error) {
+      throw error;
+    }
+
   }
 }

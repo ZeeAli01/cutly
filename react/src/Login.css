@@ -673,3 +673,159 @@ a {
     height: auto;
     object-fit: contain;
 }
+
+/*  logos.jsx*/
+#my-logos-h2 {
+    display: flex;
+    justify-content: center;
+    font-weight: 800;
+    padding: 20px;
+    color: rgb(83 59 138);
+}
+
+.logos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 18px 5px;
+    justify-items: center;
+    padding: 18px;
+
+}
+
+.logo-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 280px;
+    height: 280px;
+
+}
+
+.logo-card img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+}
+
+.logo-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.logo-card:hover img {
+    transform: scale(1.05);
+}
+
+/* logo modal */
+.logo-modal {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.logo-modal img {
+    height: 250px;
+    width: 250px;
+}
+
+/* custom select */
+.custom-select-container {
+    position: relative;
+    width: 100%;
+}
+
+.custom-select-selected {
+    padding: 8px 16px;
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.custom-select-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    /* border: 1px solid #ccc; */
+    border-radius: 4px;
+    z-index: 10;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.custom-select-option {
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.custom-select-option:hover {
+    background: rgb(61, 61, 227);
+}
+
+/* mytags.jsx */
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    /* Space between tags */
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 20px;
+    background-color: #e0b3ff;
+    color: #4b0082;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-family: "Dancing Script", cursive;
+    font-weight: 800;
+    font-size: 25px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.tag:hover {
+    background-color: #d4a3ff;
+    /* Slightly darker purple on hover */
+}
+
+.tag-delete {
+    margin-left: 8px;
+    font-weight: bold;
+
+    color: #4b0082;
+    /* Dark purple color for the cross */
+    cursor: pointer;
+}
+
+.tag-delete:hover {
+    color: #000;
+    /* Darker color on hover */
+}
+
+.barchart-url {
+    display: flex;
+    padding: 20px;
+    margin: 20px auto;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 600px;
+
+}

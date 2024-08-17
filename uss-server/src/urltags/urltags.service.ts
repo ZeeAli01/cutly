@@ -25,13 +25,9 @@ export class UrltagsService {
     }
   }
 
-  async findAll(username: string): Promise<urltag[] | undefined> {
+  async findAll(user_id: string): Promise<urltag[] | undefined> {
     try {
-      const user: users | undefined = await this.usersService.findByUsername(username);
-      if (!user) {
-        throw new InternalServerErrorException('User not found')
-      }
-      const urlTag: urltag[] = await this.databaseService.urltag.findMany({ where: { user_id: user.user_id } })
+      const urlTag: urltag[] = await this.databaseService.urltag.findMany({ where: { user_id: user_id } })
       if (!urlTag.length) {
         return undefined;
       }
@@ -47,14 +43,36 @@ export class UrltagsService {
     return `This action returns a #${id} urltag`;
   }
 
-  update(id: number, updateUrltagDto: UpdateUrltagDto) {
-    return `This action updates a #${id} urltag`;
+  async update(id: number, updateUrltagDto: UpdateUrltagDto): Promise<urltag | undefined> {
+    try {
+      const updated: urltag = await this.databaseService.urltag.update({
+        where: {
+          tag_id: id
+        }, data:
+          updateUrltagDto
+      })
+      if (!updated) {
+        return undefined;
+      }
+      console.log("updated:", updated);
+      return updated;
+    } catch (error) {
+
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} urltag`;
+  async remove(id: number): Promise<urltag | undefined> {
+    try {
+      const deleted: urltag = await this.databaseService.urltag.delete({ where: { tag_id: id } })
+      if (!deleted) {
+        return undefined;
+      }
+      return deleted;
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to delete url tag');
+    }
   }
-  async checkIfExists(tag_name: string, user_id: string) {
+  async checkIfExists(tag_name: string, user_id: string): Promise<boolean> {
     const urlTag: urltag | undefined = await this.databaseService.urltag.findFirst({ where: { tag_name, user_id } })
     if (urlTag)
       return true;

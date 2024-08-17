@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import UpdateUserModal from "./UpdateUserModal";
 import { MdDelete } from "react-icons/md";
+
 import CreateUserModal from "./CreateUserModal";
 function UserTable() {
   const [users, setUsers] = useState([]);

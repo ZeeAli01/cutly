@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, UseGuards, Get, Post, Body, Patch, Param, Delete, Query, Req, UnauthorizedException } from '@nestjs/common';
 import { UrlsService } from './urls.service';
 import { Prisma, url } from '@prisma/client';
 import { CreateUrlDto } from './dto/create-url.dto';
@@ -7,6 +7,7 @@ import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/decorators/roles.decorator'; //ROLES CUSTOM DECORATOR
 import { Role } from 'src/enums/role.enum';//ROLES ENUM -> 1,2
+import { Request } from 'express';
 
 @Controller('urls')
 export class UrlsController {
@@ -19,8 +20,18 @@ export class UrlsController {
   }
   @UseGuards(AuthGuard)
   @Get()
-  async findAll(@Query('username') username: string): Promise<url[] | undefined> {
-    return await this.urlsService.findAll(username);
+  async findAll(@Req() req: Request): Promise<url[] | undefined> {
+    try {
+      const user_id = req['user']['user_id']
+      if (!user_id) {
+        throw new UnauthorizedException('You are not logged In')
+      }
+      return await this.urlsService.findAll(user_id);
+
+    } catch (error) {
+      throw error;
+    }
+
   }
   // redirect/:url
   @Get('redirect/:url')

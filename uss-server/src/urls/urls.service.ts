@@ -79,13 +79,10 @@ export class UrlsService {
       throw new InternalServerErrorException('Failed to create short url');
     }
   }
-  async findAll(username: string): Promise<url[] | undefined> {
+  async findAll(user_id: string): Promise<url[] | undefined> {
     try {
-      const user: users | undefined = await this.usersService.findByUsername(username);
-      if (!user) {
-        throw new InternalServerErrorException('User not found')
-      }
-      const urls: url[] = await this.databaseService.url.findMany({ where: { user_id: user.user_id }, include: { urltag: true, logo: true } })
+
+      const urls: url[] = await this.databaseService.url.findMany({ where: { user_id }, include: { urltag: true, logo: true } })
       if (!urls.length) {
         return undefined;
       }

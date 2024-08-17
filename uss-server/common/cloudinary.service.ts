@@ -32,13 +32,15 @@ export class CloudinaryService {
         }
     }
     async deleteFromCloudinary(secure_url: string): Promise<any> {
+        console.log("delete from cloud secure url= ", secure_url);
         try {
             if (!secure_url) return null;
-            const match: RegExpMatchArray = secure_url.match(/\/([a-zA-Z0-9]+)\.jpg$/);
+            const match: RegExpMatchArray = secure_url.match(/\/([^\/]+)\.(?:png|jpg|jpeg|gif|bmp|webp|tiff)$/i);
             let public_id: string;
             if (match && match[1]) {
                 public_id = match[1];
             }
+            // console.log("-----------------------------PUBLIC ID-------- ", public_id);
             const result = await cloudinary.uploader.destroy(public_id);
             if (!result) {
                 console.error('Failed to delete file from cloudinary:', secure_url);

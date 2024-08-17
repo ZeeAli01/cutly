@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FaTag } from "react-icons/fa";
 import { FaArrowCircleRight } from "react-icons/fa";
+import MyTags from "./MyTags.jsx"
 function AssignTag() {
   const [username, setUsername] = useState(localStorage.getItem("username"));
   const [accessToken, setAccessToken] = useState(
@@ -14,7 +15,7 @@ function AssignTag() {
   const handleShow = () => setShow(true);
   const [created, setCreated] = useState(false);
   const [createdMessage, setCreatedMessage] = useState("");
-  //
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -84,6 +85,9 @@ function AssignTag() {
               </p>
             </>
           )}
+
+          <MyTags/>
+
         </div>
       </div>
     </>

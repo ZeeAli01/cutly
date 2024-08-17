@@ -7,3 +7,7 @@ src/assets/components/AssignTag.jsx
 src/assets/components/Dashboard.jsx
 src/assets/components/UsageStats.jsx
 src/assets/components/UrlClickInfo.jsx
+src/assets/components/Logos.jsx
+src/assets/components/UploadLogo.jsx
+src/assets/components/MyTags.jsx
+src/assets/components/BarChart.jsx

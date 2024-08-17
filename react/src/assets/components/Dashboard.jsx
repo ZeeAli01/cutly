@@ -33,12 +33,12 @@ function Dashboard() {
       setTotalClicks(0);
       setUrlAndClick([]);
       const response = await fetch(
-        `http://localhost:3000/api/urls/?username=${username}`,
+        `http://localhost:3000/api/urls/?username`,
         {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
+            "Authorization": `Bearer ${accessToken}`,
           },
         }
       );

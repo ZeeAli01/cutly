@@ -18,7 +18,7 @@ function UrlTable() {
   }, [localStorage.getItem("accessToken")]);
   const fetchUrls = async () => {
     try {
-      const response  = await fetch(`http://localhost:3000/api/urls/?username=${username}`, {
+      const response  = await fetch(`http://localhost:3000/api/urls/`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -111,7 +111,8 @@ function UrlTable() {
                 <td>{url.url_type?url.url_type:"-"}</td>
                 {/* <td>{url.is_pre_generated?"true":"false"}</td> */}
                 {/* <td><QRModal url={url.short_url}/></td> */}
-                <td>{url.urltag?url.urltag.tag_name:"-"}</td>
+                <td><div className="tag"><span>{url.urltag?url.urltag.tag_name:"-"}</span></div></td>
+               
                 <td className="actions-td">
                   <button
                     className="row-delete-button btn btn-danger"

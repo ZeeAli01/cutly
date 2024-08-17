@@ -9,14 +9,10 @@ import { CloudinaryService } from 'common/cloudinary.service';
 export class LogosService {
   // private urlsService: UrlsService
   constructor(private readonly databaseService: DatabaseService, private readonly usersService: UsersService, private readonly cloudinaryService: CloudinaryService) { }
-  async uploadFile(username: string, file: Express.Multer.File) {
+  async uploadFile(user_id: string, file: Express.Multer.File) {
     try {
       if (!file) {
         throw new BadRequestException('file is not an image');
-      }
-      const user: users = await this.usersService.findByUsername(username);
-      if (!user) {
-        throw new InternalServerErrorException('User not found')
       }
       //upload on cloudinary:
       const response: any = await this.cloudinaryService.uploadOnCloudinary(file.path);
@@ -28,7 +24,8 @@ export class LogosService {
 
       // create logo entry here in the database.
 
-      const Newlogo: logo = await this.create({ user_id: user.user_id, logo_path: response.secure_url });
+      const Newlogo: logo = await this.create({ user_id: user_id, logo_path: response.secure_url });
+      //on  success-> remove the file from the server locally
       return Newlogo;
     } catch (error) {
       throw new BadRequestException('error in uploading file on cloud');
@@ -49,8 +46,17 @@ export class LogosService {
     }
   }
 
-  findAll() {
-    return JSON.stringify(`This action returns all logos`);
+  async findAll(user_id: string): Promise<logo[] | undefined> {
+    try {
+      const logos: logo[] = await this.databaseService.logo.findMany({ where: { user_id } });
+      if (!logos) {
+        throw new InternalServerErrorException('Error fetching logos')
+      }
+      // console.log("logos", logos);
+      return logos;
+    } catch (error) {
+      throw new BadRequestException('error in uploading file on cloud');
+    }
   }
 
   findOne(id: number) {
@@ -61,19 +67,14 @@ export class LogosService {
     return `This action updates a #${id} logo`;
   }
 
-  async remove(username: string, secure_url: string): Promise<any> {
-
+  async remove(user_id: string, secure_url: string): Promise<any> {
     try {
-      const user: users = await this.usersService.findByUsername(username);
-      if (!user) {
-        throw new InternalServerErrorException('User not found')
-      }
       const deleted: any = await this.cloudinaryService.deleteFromCloudinary(secure_url);
       console.log("delete from cloud response = ", deleted);
       if (!deleted) {
         throw new InternalServerErrorException('Error deleting logo from cloud')
       }
-      const deletedLogo = await this.databaseService.logo.deleteMany({ where: { logo_path: secure_url } });
+      const deletedLogo = await this.databaseService.logo.deleteMany({ where: { logo_path: secure_url, user_id } });
       return deletedLogo;
     } catch (error) {
       throw new BadRequestException('error in deleting file');

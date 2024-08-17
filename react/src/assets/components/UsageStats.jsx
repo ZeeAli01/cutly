@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import UrlClickInfo from "./UrlClickInfo";
+import BarChartUrl from "./BarChartUrl.jsx";
 
 function UsageStats() {
   const [username, setUsername] = useState(localStorage.getItem("username"));
@@ -24,9 +25,8 @@ function UsageStats() {
   const fetchUrls = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/urls/?username=${username}`,
+        `http://localhost:3000/api/urls/`,
         {
-          method: "GET",
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${accessToken}`,
@@ -76,6 +76,10 @@ function UsageStats() {
               
             </Accordion>
           </div>
+          <div className="barchart-url">
+          <BarChartUrl/>
+          </div>
+          
         </div>
       </div>
     </>

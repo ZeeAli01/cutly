@@ -64,8 +64,8 @@ model url {
   associated_at    DateTime?    @db.Timestamp(6)
   status           statusenum   @default(active)
   auditlog         auditlog[]
-  logo             logo?        @relation(fields: [logo_id], references: [logo_id], onDelete: NoAction, onUpdate: NoAction)
-  urltag           urltag?      @relation(fields: [tag_id], references: [tag_id], onDelete: NoAction, onUpdate: NoAction)
+  logo             logo?        @relation(fields: [logo_id], references: [logo_id])
+  urltag           urltag?      @relation(fields: [tag_id], references: [tag_id])
   users            users?       @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction)
   urlclick         urlclick[]
 }
