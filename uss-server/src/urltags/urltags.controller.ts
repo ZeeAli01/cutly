@@ -9,12 +9,14 @@ import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { AllExceptionsFilter } from 'src/exceptions/all-exception.filter';
 import { Request } from 'express';
+import { ApiKeyAuthGuard } from 'common/middleware/api-key-auth.guard';
 @UseFilters(AllExceptionsFilter)
 @UseGuards(AuthGuard)
 @Controller('urltags')
 
 export class UrltagsController {
   constructor(private readonly urltagsService: UrltagsService) { }
+  @UseGuards(ApiKeyAuthGuard)
   @Post()
   async create(@Req() req: Request, @Body() createUrltagDto: CreateUrltagDto): Promise<urltag | undefined> {
     const user_id = req['user']['user_id'];

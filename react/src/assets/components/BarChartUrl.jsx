@@ -1,57 +1,102 @@
-import React from "react";
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid } from "recharts";
-
-const colors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "red", "pink"];
-
-const data = [
-  { name: "Page A", uv: 4000, pv: 2400, amt: 2400 },
-  { name: "Page B", uv: 3000, pv: 1398, amt: 2210 },
-  { name: "Page C", uv: 2000, pv: 9800, amt: 2290 },
-  { name: "Page D", uv: 2780, pv: 3908, amt: 2000 },
-  { name: "Page E", uv: 1890, pv: 4800, amt: 2181 },
-  { name: "Page F", uv: 2390, pv: 3800, amt: 2500 },
-  { name: "Page G", uv: 3490, pv: 4300, amt: 2100 },
-];
-
-const getPath = (x, y, width, height) => {
-  return `M${x},${y + height}C${x + width / 3},${y + height} ${x + width / 2},${
-    y + height / 3
-  } ${x + width / 2},${y} C${x + width / 2},${y + height / 3} ${
-    x + (2 * width) / 3
-  },${y + height} ${x + width},${y + height} Z`;
-};
-
-const TriangleBar = (props) => {
-  const { fill, x, y, width, height } = props;
-  return <path d={getPath(x, y, width, height)} stroke="none" fill={fill} />;
-};
+import React, { useState, useEffect } from "react";
+import {
+  BarChart,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  CartesianGrid,
+  Bar,
+} from "recharts";
 
 export default function BarChartUrl() {
+  const [urls, setUrls] = useState([]);
+  const [data, setData] = useState([]);
+  const accessToken = localStorage.getItem("accessToken");
+
+  useEffect(() => {
+    fetchUrls();
+  }, []);
+
+  const fetchUrls = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/urls`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      if (!response.ok) {
+        console.error("Network response was not ok.");
+        return;
+      }
+      const urlsData = await response.json();
+      setUrls(urlsData);
+
+      // Fetch click counts for all URLs
+      const clicksData = await Promise.all(
+        urlsData.map(async (url) => {
+          const clicks = await fetchUrlClicks(url.url_id);
+          return { url: url.short_url, clicks };
+        })
+      );
+
+      setData(clicksData);
+    } catch (error) {
+      console.error("Error getting URLs:", error);
+    }
+  };
+
+  const fetchUrlClicks = async (url_id) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/urlclicks?url_id=${url_id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      if (!response.ok) {
+        console.error("Network response was not ok.");
+        return 0;
+      }
+      const data = await response.json();
+      return parseInt(data.count);
+    } catch (error) {
+      console.error("Error getting click counts:", error);
+      return 0;
+    }
+  };
+
   return (
-    <BarChart
-      width={500}
-      height={300}
-      data={data}
-      margin={{
-        top: 20,
-        right: 30,
-        left: 20,
-        bottom: 5,
-      }}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
-      <YAxis />
-      <Bar
-        dataKey="uv"
-        fill="#8884d8"
-        shape={<TriangleBar />}
-        label={{ position: "top" }}
+    <div>
+      <BarChart
+        width={500}
+        height={300}
+        data={data}
+        margin={{
+          top: 5,
+          right: 30,
+          left: 80,
+          bottom: 5,
+        }}
+        barSize={20}
       >
-        {data.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
-        ))}
-      </Bar>
-    </BarChart>
+        <XAxis
+          dataKey="url"
+          scale="point"
+          padding={{ left: 10, right: 10 }}
+        />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <CartesianGrid strokeDasharray="3 3" />
+        <Bar dataKey="clicks" fill="#8884d8" background={{ fill: "#eee" }} />
+      </BarChart>
+    </div>
   );
 }

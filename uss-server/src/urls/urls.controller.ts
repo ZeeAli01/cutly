@@ -8,6 +8,7 @@ import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/decorators/roles.decorator'; //ROLES CUSTOM DECORATOR
 import { Role } from 'src/enums/role.enum';//ROLES ENUM -> 1,2
 import { Request } from 'express';
+import { ApiKeyAuthGuard } from 'common/middleware/api-key-auth.guard';
 
 @Controller('urls')
 export class UrlsController {

@@ -18,7 +18,7 @@ function UrlTable() {
   }, [localStorage.getItem("accessToken")]);
   const fetchUrls = async () => {
     try {
-      const response  = await fetch(`http://localhost:3000/api/urls/`, {
+      const response  = await fetch(`http://localhost:3000/api/urls`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

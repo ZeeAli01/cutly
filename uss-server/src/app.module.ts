@@ -12,13 +12,15 @@ import { UrlclicksModule } from './urlclicks/urlclicks.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { LogosModule } from './logos/logos.module';
 import { CloudinaryService } from 'common/cloudinary.service';
+import { ApikeysModule } from './apikeys/apikeys.module';
 
 @Module({
   imports: [DatabaseModule, AuthModule, UsersModule, UrlsModule, UrltagsModule, UrlclicksModule,
+    LogosModule,
+    ApikeysModule,
     MulterModule.register({
       dest: '../common/public/temp',
     }),
-    LogosModule
   ],
   controllers: [AppController],
   providers: [AppService, CloudinaryService],
@@ -35,5 +37,6 @@ export class AppModule implements NestModule {
     consumer.
       apply(UrlRedirectMiddleware)
       .forRoutes({ path: 'urls/redirect/:url', method: RequestMethod.GET });
+
   }
 }

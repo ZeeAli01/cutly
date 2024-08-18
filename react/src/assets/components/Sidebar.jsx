@@ -68,12 +68,12 @@ export default function Sidebar() {
             </Link>
           </div>
           {/* api keys of user */}
-          {/* <div className="sidebar-item">
-            <Link className="sidebar-itemname" to="/home/apikey">
+          <div className="sidebar-item">
+            <Link className="sidebar-itemname" to="/home/manageapi">
               <FaKey />
-              <span className="hover-underline-animation">API Key</span>
+              <span className="hover-underline-animation">Manage API</span>
             </Link>
-          </div> */}
+          </div>
         </>
       )}
 

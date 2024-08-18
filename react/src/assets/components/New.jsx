@@ -2,19 +2,25 @@ import React, { useEffect, useState } from "react";
 import { FaArrowCircleRight } from "react-icons/fa";
 import { QRCode } from 'react-qrcode-logo';
 import { IoMdCloudDownload } from "react-icons/io";
+import { Padding } from "@mui/icons-material";
 // NEW URL
 function New() {
  
   const today = new Date().toISOString().split('T')[0];
   const username =localStorage.getItem("username");
   const accessToken = localStorage.getItem("accessToken");
-
+  const [tags,setTags]=useState([]);//array of tags
+  
+  const [tagId,setTagId]=useState(""); 
   const [urlInput, setUrlInput] = useState("");
   const [type,setType]=useState(undefined);
   const [expirationDate, setExpirationDate] = useState(undefined);
   const [isPreGenerated,setIsPrGenerated]= useState(false);
   const [shortenedUrl,setShortenedUrl]=useState("");
-  const [tagName,setTagName]=useState();
+  useEffect(() => {
+    fetchTags();
+  }, [])
+  
   const downloadCode = (shortenedUrl) => {
     const canvas = document.getElementById(shortenedUrl);
     if (canvas) {
@@ -49,6 +55,9 @@ function New() {
   if (isPreGenerated) {
       bodyObject['is_pre_generated'] = isPreGenerated;
   }
+  if(tagId){
+    bodyObject['tag_id'] = +tagId;
+  }
  try {
       const response = await fetch(`http://localhost:3000/api/urls?username=${username}`, {
         method: "POST",
@@ -70,6 +79,25 @@ function New() {
     }
   
   };
+
+
+  const fetchTags = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/urltags`, {
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const tags = await response.json();
+      setTags(tags);
+    } catch (error) {
+      console.error("Error fetching tags:", error);
+    }
+  };
+
   return (
     <div className="sidebar-child">
       <div className="inner-sidebar-child">
@@ -103,12 +131,29 @@ function New() {
                     setType(e.target.value);
                   }}
                 >
-                
+                <option disabled value=""></option>
                   <option value="store">Store</option>
                   <option value="product">Product</option>
                   <option value="misc">Misc</option>
                 </select>
-
+                {/* tag  */}
+                <label htmlFor="url-tag-input">Tag</label>
+                <select
+                name="url-tag-input"
+                id="url-tag-input"
+                className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                value={tagId}
+                onChange={(e) => {
+                  setTagId(e.target.value);
+                }}
+              >
+                <option disabled value=""></option>
+                {tags.map((tag) => (
+                  <option key={tag.tag_id} value={tag.tag_id}>
+                    {tag.tag_name}
+                  </option>
+                ))}
+              </select>
               <label htmlFor="expiration-date">Expiration Date:</label>
                 <input
                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"

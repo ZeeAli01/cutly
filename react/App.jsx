@@ -12,6 +12,7 @@ import PreGenerate from "./src/assets/components/PreGenerate.jsx";
 import UsageStats from "./src/assets/components/UsageStats.jsx";
 import UploadLogo from "./src/assets/components/UploadLogo.jsx";
 import AssignTag from "./src/assets/components/AssignTag.jsx";
+import ApiKeyManagement from "./src/assets/components/ApiKeyManagement.jsx";
 function App() {
   return (
     <Routes>
@@ -28,6 +29,7 @@ function App() {
         <Route path="pregenerate" element={<PreGenerate />} />
         <Route path="uploadlogo" element={<UploadLogo />} />
         <Route path="uploadtag" element={<AssignTag />} />
+        <Route path="manageapi" element={<ApiKeyManagement />} />
       </Route>
     </Routes>
   );

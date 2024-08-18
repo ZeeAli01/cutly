@@ -33,7 +33,7 @@ function Dashboard() {
       setTotalClicks(0);
       setUrlAndClick([]);
       const response = await fetch(
-        `http://localhost:3000/api/urls/?username`,
+        `http://localhost:3000/api/urls`,
         {
           method: "GET",
           headers: {

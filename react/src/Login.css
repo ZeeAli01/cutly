@@ -829,3 +829,36 @@ a {
     max-width: 600px;
 
 }
+
+
+/* manage api key */
+#createapikey .submit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(91, 70, 145);
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: background-color 0.2s ease;
+}
+
+#createapikey .submit-button:hover {
+    background-color: #543394;
+}
+
+
+
+section.api-key-box {
+    margin: 0 auto 20px auto;
+    max-width: 758px;
+    box-shadow: 0 1px 4px #ccc;
+    border-radius: 6px;
+    padding: 20px 30px;
+    background: #fff;
+    text-align: center;
+}
