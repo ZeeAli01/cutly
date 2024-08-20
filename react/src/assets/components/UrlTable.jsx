@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import UpdateUrlModal from "./UpdateUrlModal";
 import QRModal from "./QRModal";
-
+import {Toaster,toast} from 'sonner';
 
 function UrlTable() {
   const [urls, setUrls] = useState([]);
@@ -116,8 +116,11 @@ function UrlTable() {
                 <td className="actions-td">
                   <button
                     className="row-delete-button btn btn-danger"
-                    onClick={() => handleUrlDeleteButton(url.url_id)}
+                    onClick={() => {handleUrlDeleteButton(url.url_id)
+                      toast.success('Deleted Url Successfully!');
+                    }}
                   >
+                    <Toaster richColors/>
                     <MdDelete />
                   </button>
                   <div className="text-center">
