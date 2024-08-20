@@ -10,6 +10,7 @@ import PersonIcon from "@mui/icons-material/Person"; //manage users
 import { FaKey } from "react-icons/fa"; //api key
 import { IoLogoIonitron } from "react-icons/io"; //LOGO
 import { FaTag } from "react-icons/fa"; //tag
+import { AiOutlineAudit } from "react-icons/ai"; //auditlog
 
 export default function Sidebar() {
   const [role, setUserRole] = useState(undefined);
@@ -94,6 +95,17 @@ export default function Sidebar() {
               <span className="hover-underline-animation">Manage Role</span>
             </Link>
           </div>
+
+
+          {/* audit log*/}
+          <div className="sidebar-item">
+            <Link className="sidebar-itemname" to="/home/auditlog">
+            <AiOutlineAudit />
+              <span className="hover-underline-animation">Audit Logs</span>
+            </Link>
+          </div>
+
+
         </>
       )}
       {/* logout */}

@@ -13,14 +13,17 @@ import { MulterModule } from '@nestjs/platform-express';
 import { LogosModule } from './logos/logos.module';
 import { CloudinaryService } from 'common/cloudinary.service';
 import { ApikeysModule } from './apikeys/apikeys.module';
+import { AuditlogsModule } from './auditlogs/auditlogs.module';
 
 @Module({
   imports: [DatabaseModule, AuthModule, UsersModule, UrlsModule, UrltagsModule, UrlclicksModule,
     LogosModule,
     ApikeysModule,
+    AuditlogsModule,
     MulterModule.register({
       dest: '../common/public/temp',
     }),
+
   ],
   controllers: [AppController],
   providers: [AppService, CloudinaryService],

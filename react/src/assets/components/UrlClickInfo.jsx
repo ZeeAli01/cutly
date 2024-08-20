@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 function UrlClickInfo({ url }) {
+
 const [urlclicks,setUrlClicks]=useState([]);
   const [accessToken, setAccessToken] = useState(
     localStorage.getItem("accessToken")
@@ -37,6 +38,30 @@ fetchUrlClicks(url);
       return 0;
     }
   };
+
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based in JavaScript
+    const year = date.getFullYear();
+  
+    return `${day}/${month}/${year}`;
+  }
+  
+  // Function to format time to HH:MM AM/PM
+  function formatTime(timeString) {
+    const date = new Date(timeString);
+    let hours = date.getUTCHours();
+    const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+  
+    hours = hours % 12;
+    hours = hours ? hours : 12; // The hour '0' should be '12'
+    const formattedHours = String(hours).padStart(2, '0');
+  
+    return `${formattedHours}:${minutes} ${ampm}`;
+  }
+
   return <>
           <div className="urlClick-table">
                <table >
@@ -52,8 +77,8 @@ fetchUrlClicks(url);
                     <tbody>
                       {urlclicks.map((urlclick, index) => (
                         <tr key={index}>
-                          <td>{urlclick.access_date}</td>
-                          <td>{urlclick.access_time}</td>
+                          <td>{formatDate(urlclick.access_date)}</td>
+                          <td>{formatTime(urlclick.access_time)}</td>
                           <td>{urlclick.ip_address}</td>
                           <td>{urlclick.user_agent}</td>
                           <td>{urlclick.referrer}</td>

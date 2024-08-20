@@ -1,12 +1,13 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { Prisma, url, users } from '@prisma/client';
+import { auditlog, Prisma, url, users } from '@prisma/client';
 import { DatabaseService } from 'src/database/database.service';
 import { CreateUrlDto } from './dto/create-url.dto';
 import { UsersService } from 'src/users/users.service';
+import { AuditlogsService } from 'src/auditlogs/auditlogs.service';
 
 @Injectable()
 export class UrlsService {
-  constructor(private readonly databaseService: DatabaseService, private usersService: UsersService) { }
+  constructor(private readonly databaseService: DatabaseService, private usersService: UsersService, private readonly auditlogsService: AuditlogsService) { }
   async create(username: string, createUrlDto: CreateUrlDto): Promise<url | undefined> {
     try {
       let foundInDB: url | undefined;
@@ -111,8 +112,12 @@ export class UrlsService {
     try {
       const urlToUpdate: url | undefined = await this.databaseService.url.findUnique({ where: { url_id: id }, });
       if (!urlToUpdate) { throw new InternalServerErrorException('Url Not Found'); }
-      const updatedUrl = await this.databaseService.url.update({ where: { url_id: id }, data: updateUrlDto, include: { urltag: true, logo: true } });
-      if (updatedUrl) { return updatedUrl }
+      const updatedUrl: url | undefined = await this.databaseService.url.update({ where: { url_id: id }, data: { ...updateUrlDto, updated_at: new Date(Date.now()) }, include: { urltag: true, logo: true } });
+      if (updatedUrl) {
+        const audit: auditlog = await this.auditlogsService.create({ url_id: id, action: `Update`, changed_by: urlToUpdate.user_id, change_date: new Date(Date.now()), details: `Updated ${urlToUpdate.short_url}` });
+
+        return updatedUrl
+      }
       return undefined;
     } catch (error) {
       throw new InternalServerErrorException('Failed to update url data');
@@ -129,6 +134,9 @@ export class UrlsService {
       const deleted = await this.databaseService.url.delete({ where: { url_id: id } });
       if (!deleted)
         return undefined;
+
+      const audit: auditlog = await this.auditlogsService.create({ url_id: id, action: `Delete`, changed_by: urlToDelete.user_id, change_date: new Date(Date.now()), details: `Deleted ${urlToDelete.short_url}` });
+
       return deleted;
 
     } catch (error) {

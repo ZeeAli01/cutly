@@ -16,7 +16,7 @@ import { ApiKeyAuthGuard } from 'common/middleware/api-key-auth.guard';
 
 export class UrltagsController {
   constructor(private readonly urltagsService: UrltagsService) { }
-  @UseGuards(ApiKeyAuthGuard)
+  // @UseGuards(ApiKeyAuthGuard)
   @Post()
   async create(@Req() req: Request, @Body() createUrltagDto: CreateUrltagDto): Promise<urltag | undefined> {
     const user_id = req['user']['user_id'];

@@ -7,5 +7,6 @@ import { DatabaseModule } from 'src/database/database.module';
   imports: [DatabaseModule],
   controllers: [ApikeysController],
   providers: [ApikeysService],
+  exports: [ApikeysService]
 })
 export class ApikeysModule { }

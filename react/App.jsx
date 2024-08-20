@@ -13,6 +13,8 @@ import UsageStats from "./src/assets/components/UsageStats.jsx";
 import UploadLogo from "./src/assets/components/UploadLogo.jsx";
 import AssignTag from "./src/assets/components/AssignTag.jsx";
 import ApiKeyManagement from "./src/assets/components/ApiKeyManagement.jsx";
+import AuditLog from "./src/assets/components/AuditLog.jsx";
+AuditLog;
 function App() {
   return (
     <Routes>
@@ -30,6 +32,7 @@ function App() {
         <Route path="uploadlogo" element={<UploadLogo />} />
         <Route path="uploadtag" element={<AssignTag />} />
         <Route path="manageapi" element={<ApiKeyManagement />} />
+        <Route path="auditlog" element={<AuditLog />} />
       </Route>
     </Routes>
   );
