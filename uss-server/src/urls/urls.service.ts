@@ -125,6 +125,9 @@ export class UrlsService {
   }
 
   async remove(id: string): Promise<url | undefined> {
+    console.log("zeeshan", id);
+
+
     try {
       const urlToDelete: url | undefined = await this.databaseService.url.findUnique({ where: { url_id: id } });
       if (!urlToDelete) {
@@ -135,11 +138,13 @@ export class UrlsService {
       if (!deleted)
         return undefined;
 
-      const audit: auditlog = await this.auditlogsService.create({ url_id: id, action: `Delete`, changed_by: urlToDelete.user_id, change_date: new Date(Date.now()), details: `Deleted ${urlToDelete.short_url}` });
+      // const audit: auditlog = await this.auditlogsService.create({ url_id: id, action: `Delete`, changed_by: urlToDelete.user_id, change_date: new Date(Date.now()), details: `Deleted ${urlToDelete.short_url}` });
 
       return deleted;
 
     } catch (error) {
+      console.log(error);
+
       throw new InternalServerErrorException('Failed to delete url');
     }
   }

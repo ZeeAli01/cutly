@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import UpdateUrlModal from "./UpdateUrlModal";
 import QRModal from "./QRModal";
-import {Toaster,toast} from 'sonner';
-
+import {Toaster,toast} from 'sonner'
 function UrlTable() {
   const [urls, setUrls] = useState([]);
   const username = localStorage.getItem("username");
@@ -40,6 +39,7 @@ function UrlTable() {
     
   };
   async function handleUrlDeleteButton(id) {
+    console.log(id);
     try{
       const response=await fetch(`http://localhost:3000/api/urls/${id}`, {
       method: "DELETE",
@@ -111,13 +111,13 @@ function UrlTable() {
                 <td>{url.url_type?url.url_type:"-"}</td>
                 {/* <td>{url.is_pre_generated?"true":"false"}</td> */}
                 {/* <td><QRModal url={url.short_url}/></td> */}
-                <td><div className="tag"><span>{url.urltag?url.urltag.tag_name:"-"}</span></div></td>
+                <td><div className={url.urltag?"tag":""}><span>{url.urltag?url.urltag.tag_name:"-"}</span></div></td>
                
                 <td className="actions-td">
                   <button
                     className="row-delete-button btn btn-danger"
-                    onClick={() => {handleUrlDeleteButton(url.url_id)
-                      toast.success('Deleted Url Successfully!');
+                    onClick={() =>{ handleUrlDeleteButton(url.url_id)
+                      toast.success('Deleted Url Successfully')
                     }}
                   >
                     <Toaster richColors/>
